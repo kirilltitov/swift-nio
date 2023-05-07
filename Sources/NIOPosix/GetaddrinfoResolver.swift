@@ -157,7 +157,9 @@ internal class GetaddrinfoResolver: Resolver {
         var hint = addrinfo()
         hint.ai_socktype = self.aiSocktype.rawValue
         hint.ai_protocol = self.aiProtocol.rawValue
-        guard getaddrinfo(host, String(port), &hint, &info) == 0 else {
+        let getaddrinfoResult: Int32 = getaddrinfo(host, String(port), &hint, &info)
+        guard getaddrinfoResult  == 0 else {
+            print("getaddrinfo returned \(getaddrinfoResult) != 0 (\(#file):\(#line))")
             self.fail(SocketAddressError.unknown(host: host, port: port))
             return
         }

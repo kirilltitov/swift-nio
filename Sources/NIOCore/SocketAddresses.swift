@@ -482,7 +482,7 @@ public enum SocketAddress: CustomStringConvertible, Sendable {
         /* FIXME: this is blocking! */
         let getaddrinfoResult: Int32 = getaddrinfo(host, String(port), nil, &info)
         if getaddrinfoResult != 0 {
-            print("getaddrinfo returned \(getaddrinfoResult) != 0")
+            print("getaddrinfo returned \(getaddrinfoResult) != 0 (\(#file):\(#line))")
             throw SocketAddressError.unknown(host: host, port: port)
         }
 
