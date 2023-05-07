@@ -480,7 +480,9 @@ public enum SocketAddress: CustomStringConvertible, Sendable {
         var info: UnsafeMutablePointer<addrinfo>?
 
         /* FIXME: this is blocking! */
-        if getaddrinfo(host, String(port), nil, &info) != 0 {
+        let getaddrinfoResult: Int32 = getaddrinfo(host, String(port), nil, &info)
+        if getaddrinfoResult != 0 {
+            print("getaddrinfo returned \(getaddrinfoResult) != 0")
             throw SocketAddressError.unknown(host: host, port: port)
         }
 
